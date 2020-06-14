@@ -8,10 +8,12 @@
     "dev": "ts-node ./src/index.ts"
   },
   "devDependencies": {
+    "@types/node-fetch": "^2.5.7",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "@octokit/rest": "^18.0.0"
+    "@octokit/rest": "^18.0.0",
+    "node-fetch": "^2.6.0"
   }
 }
