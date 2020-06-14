@@ -44,15 +44,15 @@ function getMeal(date: Date = new Date()): Meal {
 }
 
 (async () => {
-  const today = new Date();
+  const datetime = new Date();
 
-  const getNextDay = isTomorrow(today);
+  const getNextDay = isTomorrow(datetime);
 
   if (getNextDay) {
-    today.setDate(today.getDate() + 1);
+    datetime.setDate(datetime.getDate() + 1);
   }
 
-  const fetched = await fetch(`${BASE_URL}/dimibobs/${getYYYYMMDD(today)}`);
+  const fetched = await fetch(`${BASE_URL}/dimibobs/${getYYYYMMDD(datetime)}`);
   const data = (await fetched.json()) as bob;
 
   const output =
