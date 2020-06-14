@@ -15,6 +15,12 @@ interface bob {
   date: string;
 }
 
+enum Meal {
+  breakfast,
+  lunch,
+  dinner,
+}
+
 function getYYYYMMDD(date: Date = new Date()): string {
   let mm = date.getMonth() + 1;
   let dd = date.getDate();
@@ -26,6 +32,15 @@ function getYYYYMMDD(date: Date = new Date()): string {
 
 function isTomorrow(date: Date = new Date()): boolean {
   return date.getHours() > 19;
+}
+
+function getMeal(date: Date = new Date()): Meal {
+  const time = date.getHours() * 100 + date.getMinutes();
+
+  if (816 <= time && time <= 1340) return Meal.lunch;
+  else if (time <= 1920) return Meal.dinner;
+
+  return Meal.breakfast;
 }
 
 (async () => {
@@ -45,6 +60,7 @@ function isTomorrow(date: Date = new Date()): boolean {
     `아침🌅 ${data.breakfast}\n` +
     `점심🌞 ${data.lunch}\n` +
     `저녁🌃 ${data.dinner}`;
+  const title = `${getNextDay ? "내일의 밥" : "오늘의 밥"} - `;
 
   const octokit = new Octokit({ auth: `token ${process.env.GH_TOKEN}` });
   const gist = await octokit.gists
