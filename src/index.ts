@@ -15,7 +15,7 @@ interface bob {
   date: string;
 }
 
-function getYYYYMMDD(date: Date): string {
+function getYYYYMMDD(date: Date = new Date()): string {
   let mm = date.getMonth() + 1;
   let dd = date.getDate();
 
@@ -24,7 +24,7 @@ function getYYYYMMDD(date: Date): string {
   }`;
 }
 
-function isTomorrow(date: Date): boolean {
+function isTomorrow(date: Date = new Date()): boolean {
   return date.getHours() > 19;
 }
 
