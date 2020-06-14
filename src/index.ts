@@ -40,10 +40,26 @@ function isTomorrow(date: Date): boolean {
   const fetched = await fetch(`${BASE_URL}/dimibobs/${getYYYYMMDD(today)}`);
   const data = (await fetched.json()) as bob;
 
-  console.log(
+  const output =
     `${getNextDay ? "내일의 밥" : "오늘의 밥"}\n` +
-      `아침🌅 ${data.breakfast}\n` +
-      `점심🌞 ${data.lunch}\n` +
-      `저녁🌃 ${data.dinner}`
-  );
+    `아침🌅 ${data.breakfast}\n` +
+    `점심🌞 ${data.lunch}\n` +
+    `저녁🌃 ${data.dinner}`;
+
+  const octokit = new Octokit({ auth: `token ${process.env.GH_TOKEN}` });
+  const gist = await octokit.gists
+    .get({ gist_id: process.env.GIST_ID! })
+    .catch((e) => console.error("can't get gist. please check it's valid id."));
+  if (!gist) return;
+
+  const filename = Object.keys(gist.data.files)[0];
+  await octokit.gists.update({
+    gist_id: process.env.GIST_ID!,
+    files: {
+      [filename]: {
+        filename: "dimibob",
+        content: output,
+      },
+    },
+  });
 })();
