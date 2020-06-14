@@ -24,12 +24,28 @@ function getYYYYMMDD(date: Date): string {
   }`;
 }
 
+function isTomorrow(date: Date): boolean {
+  return date.getHours() > 19;
+}
+
 (async () => {
   const today = new Date();
+
+  const getNextDay = isTomorrow(today);
+
+  if (getNextDay) {
+    today.setDate(today.getDate() + 1);
+  }
+
+  console.log(today);
+
   const fetched = await fetch(`${BASE_URL}/dimibobs/${getYYYYMMDD(today)}`);
   const data = (await fetched.json()) as bob;
 
   console.log(
-    `아침🌅 ${data.breakfast}\n점심🌞 ${data.lunch}\n저녁🌃 ${data.dinner}`
+    `${getNextDay ? "내일의 밥" : "오늘의 밥"}\n` +
+      `아침🌅 ${data.breakfast}\n` +
+      `점심🌞 ${data.lunch}\n` +
+      `저녁🌃 ${data.dinner}`
   );
 })();
