@@ -1,0 +1,10 @@
+{
+  "name": "dimibob-gist",
+  "version": "1.0.0",
+  "repository": "https://github.com/CraftyDragon678/dimibob-gist",
+  "author": "CraftyDragon678",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.9.5"
+  }
+}
