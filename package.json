@@ -5,7 +5,8 @@
   "author": "CraftyDragon678",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node ./src/index.ts"
+    "dev": "ts-node ./src/index.ts",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
