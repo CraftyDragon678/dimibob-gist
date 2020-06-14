@@ -37,8 +37,6 @@ function isTomorrow(date: Date): boolean {
     today.setDate(today.getDate() + 1);
   }
 
-  console.log(today);
-
   const fetched = await fetch(`${BASE_URL}/dimibobs/${getYYYYMMDD(today)}`);
   const data = (await fetched.json()) as bob;
 
