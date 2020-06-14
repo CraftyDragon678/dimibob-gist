@@ -1,4 +1,9 @@
 import fetch from "node-fetch";
+import { resolve } from "path";
+import { config } from "dotenv";
+import { Octokit } from "@octokit/rest";
+
+config({ path: resolve(__dirname, "../.env") });
 
 const BASE_URL = "https://api.dimigo.in";
 
