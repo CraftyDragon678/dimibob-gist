@@ -31,7 +31,7 @@ function getYYYYMMDD(date: Date = new Date()): string {
 }
 
 function isTomorrow(date: Date = new Date()): boolean {
-  return date.getHours() > 19;
+  return date.getHours() >= 19;
 }
 
 function getMeal(date: Date = new Date()): Meal {
