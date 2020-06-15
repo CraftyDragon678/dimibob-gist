@@ -16,9 +16,9 @@ interface bob {
 }
 
 enum Meal {
-  breakfast,
-  lunch,
-  dinner,
+  breakfast = "아침🌅",
+  lunch = "점심🌞",
+  dinner = "저녁🌃",
 }
 
 function getYYYYMMDD(date: Date = new Date()): string {
@@ -43,6 +43,30 @@ function getMeal(date: Date = new Date()): Meal {
   return Meal.breakfast;
 }
 
+function seperateLine(
+  str: string,
+  width: number = 35,
+  char: string = "/"
+): string {
+  const arr = str.split(char);
+  let result = "";
+  let start = 0;
+
+  for (let i = 0; i < 4; ++i) {
+    for (let end = start; end <= arr.length; ++end) {
+      const currentLine = arr.slice(start, end).join(char);
+      if (currentLine.length > width || end === arr.length) {
+        start = end;
+        result += currentLine;
+        break;
+      }
+    }
+    result += "\n";
+  }
+
+  return result.trim();
+}
+
 (async () => {
   const datetime = new Date();
 
@@ -54,13 +78,17 @@ function getMeal(date: Date = new Date()): Meal {
 
   const fetched = await fetch(`${BASE_URL}/dimibobs/${getYYYYMMDD(datetime)}`);
   const data = (await fetched.json()) as bob;
+  const meal = getMeal(datetime);
 
-  const output =
-    `${getNextDay ? "내일의 밥" : "오늘의 밥"}\n` +
-    `아침🌅 ${data.breakfast}\n` +
-    `점심🌞 ${data.lunch}\n` +
-    `저녁🌃 ${data.dinner}`;
-  const title = `${getNextDay ? "내일의 밥" : "오늘의 밥"} - `;
+  const content = seperateLine(
+    meal === Meal.breakfast
+      ? data.breakfast
+      : meal === Meal.lunch
+      ? data.lunch
+      : data.dinner
+  );
+
+  const title = `${getNextDay ? "내일의 밥" : "오늘의 밥"} - ${meal}`;
 
   const octokit = new Octokit({ auth: `token ${process.env.GH_TOKEN}` });
   const gist = await octokit.gists
@@ -69,13 +97,15 @@ function getMeal(date: Date = new Date()): Meal {
   if (!gist) return;
 
   const filename = Object.keys(gist.data.files)[0];
-  await octokit.gists.update({
-    gist_id: process.env.GIST_ID!,
-    files: {
-      [filename]: {
-        filename: "dimibob",
-        content: output,
+  await octokit.gists
+    .update({
+      gist_id: process.env.GIST_ID!,
+      files: {
+        [filename]: {
+          filename: title,
+          content: content,
+        },
       },
-    },
-  });
+    })
+    .catch((e) => console.error("can't update gist"));
 })();
