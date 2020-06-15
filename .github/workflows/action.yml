@@ -24,7 +24,7 @@ jobs:
       - name: install package 📦
         run: yarn
       - name: Update gist 🔄
-        uses: yarn run dev
+        run: yarn run dev
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GIST_ID: ${{ secrets.GIST_ID }}
