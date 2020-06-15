@@ -68,7 +68,9 @@ function seperateLine(
 }
 
 (async () => {
-  const datetime = new Date();
+  const datetime = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" })
+  );
 
   const getNextDay = isTomorrow(datetime);
 
