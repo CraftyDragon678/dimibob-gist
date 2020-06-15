@@ -8,10 +8,10 @@ on:
   push:
     branches: [master]
   schedule:
-    - cron: "10 0 * * *"
-    - cron: "20 8 * * *"
-    - cron: "45 13 * * *"
-    - cron: "25 19 * * *"
+    - cron: "20 23 * * *"
+    - cron: "45 4 * * *"
+    - cron: "25 10 * * *"
+    - cron: "5 15 * * *"
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
