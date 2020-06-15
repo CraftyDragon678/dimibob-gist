@@ -38,7 +38,7 @@ function getMeal(date: Date = new Date()): Meal {
   const time = date.getHours() * 100 + date.getMinutes();
 
   if (816 <= time && time <= 1340) return Meal.lunch;
-  else if (time <= 1920) return Meal.dinner;
+  else if (1341 <= time && time <= 1920) return Meal.dinner;
 
   return Meal.breakfast;
 }
