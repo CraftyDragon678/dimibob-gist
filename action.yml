@@ -1,0 +1,6 @@
+name: "dimibob-gist"
+author: "CraftyDragon678"
+description: "gist에 오늘의 식단을 업데이트 합니다."
+runs:
+  using: "node12"
+  main: "dist/index.js"
