@@ -67,6 +67,33 @@ function seperateLine(
   return result.trim();
 }
 
+function addEmoji(content: string): string {
+  const emojiMap = {
+    '밥': '밥🍚',
+    '케익': '케익🍰',
+    '계란후라이':'계란후라이🥘',
+    '샌드위치': '샌드위치🥪',
+    '쿠키': '쿠키🍪',
+    '쥬스': '쥬스🥤',
+    '국수': '국수🍜',
+    '만두': '만두🥟',
+    '고기': '고기🍖',
+    '감자': '감자🥔',
+    '닭': '닭🍗',
+    '치킨': '치킨🍗',
+    '김치': '김치🔴🥬',
+    '치즈': '치즈🧀',
+    '떡': '떡🍡',
+  };
+
+  const emojis = Object.entries(emojiMap);
+
+  for (const [text, emoji] of emojis) 
+    content = content.replace(text, emoji);
+
+  return content;
+}
+
 (async () => {
   const datetime = new Date(
     new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" })
@@ -82,13 +109,13 @@ function seperateLine(
   const data = (await fetched.json()) as bob;
   const meal = getMeal(datetime);
 
-  const content = seperateLine(
+  const content = addEmoji(seperateLine(
     meal === Meal.breakfast
       ? data.breakfast
       : meal === Meal.lunch
       ? data.lunch
       : data.dinner
-  );
+  ));
 
   const title = `${getNextDay ? "내일의 밥" : "오늘의 밥"} - ${meal}`;
 
