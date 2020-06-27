@@ -89,7 +89,7 @@ function addEmoji(content: string): string {
   const emojis = Object.entries(emojiMap);
 
   for (const [text, emoji] of emojis) 
-    content = content.replace(text, emoji);
+    content = content.replaceAll(text, emoji);
 
   return content;
 }
@@ -109,7 +109,7 @@ function addEmoji(content: string): string {
   const data = (await fetched.json()) as bob;
   const meal = getMeal(datetime);
 
-  const content = addEmoji(seperateLine(
+  const content = seperateLine(addEmoji(
     meal === Meal.breakfast
       ? data.breakfast
       : meal === Meal.lunch
