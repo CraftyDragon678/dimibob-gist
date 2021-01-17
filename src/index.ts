@@ -45,7 +45,7 @@ function getMeal(date: Date = new Date()): Meal {
 
 function seperateLine(
   str: string,
-  width: number = 30,
+  width: number = 20,
   char: string = "/"
 ): string {
   const arr = str.split(char);
